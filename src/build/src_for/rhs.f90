@@ -2037,19 +2037,36 @@ qst(i,j,indvarsst(12)) =  (1+&
 !***********************************************************
 
 
-qst(i,j,indvarsst(13)) =  ((q(i,j,indvars(5))/((qst(i,j,indvarsst(4))+&
-                    param_float(1 + 5)*q(i,j,indvars(5))/(param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))*param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))+&
-                    param_float(11 + 5)*((q(i,j,indvars(5))/((qst(i,j,indvarsst(4))+&
-                    param_float(1 + 5)*q(i,j,indvars(5))/(param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))*param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))**6-&
-                    (q(i,j,indvars(5))/((qst(i,j,indvarsst(4))+&
-                    param_float(1 + 5)*q(i,j,indvars(5))/(param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))*param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))))*(1+&
-                    param_float(12 + 5)**6)/(((q(i,j,indvars(5))/((qst(i,j,indvarsst(4))+&
-                    param_float(1 + 5)*q(i,j,indvars(5))/(param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))*param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))+&
-                    param_float(11 + 5)*((q(i,j,indvars(5))/((qst(i,j,indvarsst(4))+&
-                    param_float(1 + 5)*q(i,j,indvars(5))/(param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))*param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))**6-&
-                    (q(i,j,indvars(5))/((qst(i,j,indvarsst(4))+&
-                    param_float(1 + 5)*q(i,j,indvars(5))/(param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))*param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))))**6+&
+qst(i,j,indvarsst(13)) =  qst(i,j,indvarsst(14))*(1+&
+                    param_float(12 + 5)**6)/(qst(i,j,indvarsst(14))**6+&
                     param_float(12 + 5)**6)
+
+
+
+!***********************************************************
+!                                                           
+! building stored variable gg ******************************
+!                                                           
+!***********************************************************
+
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!
+! (nut/(SS*k**2*eta**2))
+!
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+!***********************************************************
+!                                                           
+! Update stored variables  ( nut/(SS*k**2*eta**2) )  *******
+!                                                           
+!***********************************************************
+
+
+qst(i,j,indvarsst(14)) =  (q(i,j,indvars(5))/((qst(i,j,indvarsst(4))+&
+                    param_float(1 + 5)*q(i,j,indvars(5))/(param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))*param_float(9 + 5)**2*qst(i,j,indvarsst(2))**2))
 
      enddo
    enddo

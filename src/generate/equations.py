@@ -122,7 +122,10 @@ varstored   = { 'd'  : {'symb' : ' d '  ,
                                            'static' : True},
                   'fw'         : {'symb' : ' gg*( 1+Cw3**6 )/( gg**6+Cw3**6) ',
                                           'ind':13,
-                                          'static':True}}
+                                          'static':True},
+                  'gg'         :{ 'symb' : ' ( nut/(SS*k**2*eta**2) ) ',
+                                           'ind':14,
+                                           'static':True}}
 
 # names to give to the constructor ////////////////////////////////////////////
 # .. for comments in the Fortran file

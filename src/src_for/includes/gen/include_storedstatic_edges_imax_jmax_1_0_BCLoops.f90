@@ -429,17 +429,34 @@ qst(nx+2-1,ny+2+0,indvarsst(12)) =  (1+&
 !***********************************************************
 
 
-qst(nx+2-1,ny+2+0,indvarsst(13)) =  ((q(nx+2-1,ny+2+0,indvars(5))/((qst(nx+2-1,ny+2+0,indvarsst(4))+&
-                    param_float(1 + 5)*q(nx+2-1,ny+2+0,indvars(5))/(param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))*param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))+&
-                    param_float(11 + 5)*((q(nx+2-1,ny+2+0,indvars(5))/((qst(nx+2-1,ny+2+0,indvarsst(4))+&
-                    param_float(1 + 5)*q(nx+2-1,ny+2+0,indvars(5))/(param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))*param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))**6-&
-                    (q(nx+2-1,ny+2+0,indvars(5))/((qst(nx+2-1,ny+2+0,indvarsst(4))+&
-                    param_float(1 + 5)*q(nx+2-1,ny+2+0,indvars(5))/(param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))*param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))))*(1+&
-                    param_float(12 + 5)**6)/(((q(nx+2-1,ny+2+0,indvars(5))/((qst(nx+2-1,ny+2+0,indvarsst(4))+&
-                    param_float(1 + 5)*q(nx+2-1,ny+2+0,indvars(5))/(param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))*param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))+&
-                    param_float(11 + 5)*((q(nx+2-1,ny+2+0,indvars(5))/((qst(nx+2-1,ny+2+0,indvarsst(4))+&
-                    param_float(1 + 5)*q(nx+2-1,ny+2+0,indvars(5))/(param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))*param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))**6-&
-                    (q(nx+2-1,ny+2+0,indvars(5))/((qst(nx+2-1,ny+2+0,indvarsst(4))+&
-                    param_float(1 + 5)*q(nx+2-1,ny+2+0,indvars(5))/(param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))*param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))))**6+&
+qst(nx+2-1,ny+2+0,indvarsst(13)) =  qst(nx+2-1,ny+2+0,indvarsst(14))*(1+&
+                    param_float(12 + 5)**6)/(qst(nx+2-1,ny+2+0,indvarsst(14))**6+&
                     param_float(12 + 5)**6)
+
+
+
+!***********************************************************
+!                                                           
+! building source terms in RHS for layer 1 0 None gg *******
+!                                                           
+!***********************************************************
+
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!
+! (nut/(SS*k**2*eta**2))
+!
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+!***********************************************************
+!                                                           
+! Update BC terms for layer 1 0 None gg ********************
+!                                                           
+!***********************************************************
+
+
+qst(nx+2-1,ny+2+0,indvarsst(14)) =  (q(nx+2-1,ny+2+0,indvars(5))/((qst(nx+2-1,ny+2+0,indvarsst(4))+&
+                    param_float(1 + 5)*q(nx+2-1,ny+2+0,indvars(5))/(param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))*param_float(9 + 5)**2*qst(nx+2-1,ny+2+0,indvarsst(2))**2))
 
