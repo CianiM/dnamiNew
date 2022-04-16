@@ -72,16 +72,16 @@ varloc       = {'p': ' (gamma_m1)*rho*(e) ',
                 'fv1': ' ( chi**3/( chi**3 + Cv1**3) ) ',
                 'nu' : ' ( nut*fv1 ) ',                                         #Adimensional turbulent viscosity
                 'visc_t' : '  ( visc )*( 1 + fv1*chi )*ReI ',                    #Sum of adim dynamic viscosity and turbulent viscosity
-                'fv2': ' ( 1-chi/( 1 + chi*fv1) ) ',
-                'ft2': ' ( Ct3*exp(-Ct4*chi**2) ) ',
-                'fw' : ' ( gg*( 1+Cw3**6 )/( gg**6+Cw3**6) ) ',
-                'gg' : ' ( rr + Cw2*( rr**6-rr ) ) ',
-                'rr' : ' ( nut/(SS*k**2*eta**2) ) ' ,
-                'SS' : ' ( stemp+ReI*nut/(k**2*eta**2) ) ',
+               # 'fv2': ' ( 1-chi/( 1 + chi*fv1) ) ',
+               # 'ft2': ' ( Ct3*exp(-Ct4*chi**2) ) ',
+               #'fw' : ' ( gg*( 1+Cw3**6 )/( gg**6+Cw3**6) ) ',
+               # 'gg' : ' ( rr + Cw2*( rr**6-rr ) ) ',
+               # 'rr' : ' ( nut/(SS*k**2*eta**2) ) ' ,
+               # 'SS' : ' ( stemp+ReI*nut/(k**2*eta**2) ) ',
                 #'stemp' : s, 
                 'T': ' (e)/Cv ',
                 #'symm':'( ( sign( 1.0_wp, ksi) - 1.0_wp ) /(-2.0_wp) ) )' ,
-                'wall': ' dabs( 1-symm ) ',
+                #'wall': ' dabs( 1-symm ) ',
                 'c'   : ' ( gamma*p/rho ) '}
 
 varstored   = { 'd'  : {'symb' : ' d '  ,
@@ -95,7 +95,7 @@ varstored   = { 'd'  : {'symb' : ' d '  ,
                                   'static' : True},
                 'stemp' : {'symb' : s ,
                                     'ind' : 4,
-                                    'static' : True},
+                                    'static' : False},
                 'symm'    : {'symb' : ' ( ( sign(1.0_wp, ksi) - 1.0_wp ) /(-2.0_wp) )',
                                       'ind': 5,
                                       'static': True},
@@ -119,13 +119,31 @@ varstored   = { 'd'  : {'symb' : ' d '  ,
                                       'static' : True},
                   'viscosità'  : {'symb' : ' ( 1 + sut )/( T + sut )*T**1.5 ',
                                            'ind' : 12,
-                                           'static' : True},
+                                           'static' : False},
                   'fw'         : {'symb' : ' gg*( 1+Cw3**6 )/( gg**6+Cw3**6) ',
                                           'ind':13,
-                                          'static':True},
+                                          'static':False},
                   'gg'         :{ 'symb' : ' ( nut/(SS*k**2*eta**2) ) ',
                                            'ind':14,
-                                           'static':True}}
+                                           'static':False},
+                  'fv2'        :{'symb' : ' ( 1-chi/( 1 + chi*fv1) ) ' ,
+                                          'ind':15,
+                                          'static':False},
+                  'ft2'        :{'symb' : ' ( Ct3*exp(-Ct4*chi**2) ) ',
+                                          'ind':16,
+                                          'static':False},
+                  'fw2'        :{'symb'  : ' ( gg*( 1+Cw3**6 )/( gg**6+Cw3**6) ) ',
+                                           'ind':17,
+                                           'static':False},
+                  'rr'         :{'symb'  : ' ( nut/(SS*k**2*eta**2) ) ',
+                                           'ind':18,
+                                           'static':False},
+                  'wall'       :{'symb'  : ' dabs( 1-symm ) ',
+                                           'ind':19,
+                                           'static':True},
+                  'SS'         :{'symb'  : ' ( stemp+ReI*nut/(k**2*eta**2) ) ',
+                                           'ind':20,
+                                           'static':False}}
 
 # names to give to the constructor ////////////////////////////////////////////
 # .. for comments in the Fortran file
@@ -217,7 +235,7 @@ for key in Fx.keys():
     Src_dif[key]= 'deltaxI*( [ ' + Fx[key] +' ]_1x )' + ' + ' + 'deltayI *( [ '+ Fy[key]  +' ]_1y ) '
 
 Src_dif['nut'] = ' - ReI*Cb2*sigmaI*( (deltaxI)**2*( [ rho*nut ]_1x )*( [ nut ]_1x )+ (deltayI)**2*( [ rho*nut ]_1y )*( [ nut ]_1y ) ) \
-                   - Cb1*(1-ft2)*SS*rho*nut + ReI*(Cw1*fw-Cb1/k**2*ft2)*rho*nut**2/d**2 '
+                   - Cb1*(1-ft2)*SS*rho*nut + ReI*(Cw1*fw-Cb1/k**2*ft2)*rho*nut**2/eta**2 '
 
 #--RHS--
 Src_rhs={}

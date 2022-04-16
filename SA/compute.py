@@ -31,7 +31,7 @@ Pr    = dn.cst(0.71)
 gamma = dn.cst(1.4)
 R     = dn.cst(287.05)
 Rho0  = dn.cst(1.0)
-U0    = dn.cst(1.0)        #Reference value of Velocity 
+U0    = dn.cst(10.0)        #Reference value of Velocity 
 V0    = dn.cst(0.0)
 T0    = dn.cst(1.0)        #Reference value of Temperature
 nut0  = dn.cst(0.000025)
@@ -51,9 +51,9 @@ et0 = dn.cst(U0**2*( Cv*T0 + 0.5))
 filtr_amp = dn.cst(0.1)    # filter amplitude
 
 # ... in time ...
-with_dt = dn.cst(1e-6)
+with_dt = dn.cst(1e-8)
 #nitmax  = 50000 # for actual run
-nitmax  = 1000  # for test case 
+nitmax  = 1000000  # for test case 
 
 # ... in space ...
 #L = dn.cst(2.*np.pi) 
@@ -165,17 +165,31 @@ nut = dtree['eqns']['qvec']['views']['nut']
 with open('x_coord.dat','r') as f:
     dat=f.readlines()
     dat=np.array(dat)
-    print(dat.shape)
+#    xx=dat
     for j in np.arange(0,ny+2*hlo):
         ksi[:,j]=dat
 with open('y_coord.dat','r') as f:
     dat=f.readlines()
+    nelem = len(dat)
     dat=np.array(dat).T
+#    yy=dat
     for i in np.arange(0,nx+2*hlo):
         eta[i,:]=dat
+#xx=np.array([xx]*(193)).T
+#yy=np.array([yy]*(nx+2*hlo))
+#yy[0,:]=+1e-16
+#print(yy[0,:])
+#yy[:,0]=+1e-16
 #print(ksi.shape)
-eta[:,0]=+1e-8
-#ksi,eta = xx[dMpi.ibeg-1:dMpi.iend+2*hlo],yy[dMpi.jbeg-1:dMpi.jend+2*hlo]
+#print(yy[:,0])
+
+#ksi,eta = xx[dMpi.ibeg-1:dMpi.iend+2*hlo,dMpi.jbeg-1:dMpi.jend+2*hlo],yy[dMpi.ibeg-1:dMpi.iend+2*hlo,dMpi.jbeg-1:dMpi.jend+2*hlo]
+#print(eta[0,:])
+#ksi,eta=xx,yy
+#print(eta[0,:])
+eta[:,0]=+1e-12
+#sys.exit()
+#print(eta[0,:])
 #ksi[:,:]=xx[:,:]
 #eta[:,:]=yy[:,:]
 #u_wall=dtree['eqns']['qvec']['views']['d']
@@ -190,6 +204,8 @@ dksidy  = dtree['eqns']['qvec']['views']['dksidy']
 detadx  = dtree['eqns']['qvec']['views']['detadx']
 viscosità= dtree['eqns']['qvec']['views']['viscosità']
 fw      = dtree['eqns']['qvec']['views']['fw']
+gg      = dtree['eqns']['qvec']['views']['gg']
+fv2      = dtree['eqns']['qvec']['views']['fv2']
 # - Store variables aliases if any
 if 'qstored' in dtree['eqns']['qvec']['views'].keys():
 	qstored  = dtree['eqns']['qvec']['views']['qstored'] 
@@ -222,18 +238,18 @@ trstart = dn.cst(0.)
 #Rho0 = dn.cst(1.0)#P0/T0*Ma**2*gamma
 
 #numpy slice refering to the core of the domain
-dom = np.s_[0:nx+2*hlo,0:ny+2*hlo]
+dom = np.s_[0:545,0:385]
 
 rho[dom] = Rho0
 u[dom] = U0
-u[dom] = V0
+v[dom] = V0
 et[dom] = et0
 #p[dom]  = P0
 nut[dom]= nut0
 # -- Swap 
-print('---swap---')
+#print('---swap---')
 dMpi.swap(q,hlo,dtree)
-print('---swap---')
+#print('---swap---')
 
 
 # -- Write the first restart
@@ -256,17 +272,17 @@ mod_info   = 1.
 
 for n in range(1,nitmax+1):
     ti = ti + dt
-    print(eta[0,:])
+#    print(eta[0,:])
 #    te=temperature(et,u,v,Cv)
 #    print(str(ti))
 #    e = et - .5*(u*u)
 #    p = eos_p(rho,e)
-#    f=open(str(ti)+'Uvelocità.dat','w')
+    f=open(str(ti)+'Uvelocità.dat','w')
 #    vv=open(str(ti)+'Vvelocità.dat','w')
 #    pres=open(str(ti)+'Pressure.dat','w')
-    dens=open(str(ti)+'Density.dat','w')
+#    dens=open(str(ti)+'Density.dat','w')
 #    temp=open(str(ti)+'Tempera.dat','w')
-    stem=open(str(ti)+'stemp.dat','w')
+#    stem=open(str(ti)+'stemp.dat','w')
 #    deltxI=open(str(ti)+'deltxI.dat','w')
 #    deltyI=open(str(ti)+'deltyI.dat','w')
 #    ksiout=open(str(ti)+'ksi.dat','w')
@@ -275,8 +291,10 @@ for n in range(1,nitmax+1):
 #    sacout2=open(str(ti)+'detady.dat','w')
 #    sacout3=open(str(ti)+'dksidy.dat','w')
 #    sacout4=open(str(ti)+'detadx.dat','w')
-    viscos=open(str(ti)+'viscosit.dat','w')
-    coeff1=open(str(ti)+'fw.dat','w')
+#    viscos=open(str(ti)+'viscosit.dat','w')
+#    coeff1=open(str(ti)+'fw.dat','w')
+#    coeff2=open(str(ti)+'gg.dat','w')
+#    coeff3=open(str(ti)+'fv2.dat','w')
     udm=u.shape
 #    print(udm)
 #    print(ksi.shape)
@@ -292,12 +310,12 @@ for n in range(1,nitmax+1):
 #    print(cic)
     for i in np.arange(0,udm[0]):
         for j in np.arange(0,udm[1]):
-#            f.write('Uvel= '+ str(u[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
+            f.write('Uvel= '+ str(u[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
 #            vv.write('Vvel= '+ str(v[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
 #            pres.write('Pres= '+ str(p[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
-            dens.write('Rho= '+ str(rho[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
+#            dens.write('Rho= '+ str(rho[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
 #            temp.write('T= '+ str(te[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
-            stem.write('stem= '+ str(stemp[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
+#            stem.write('stem= '+ str(stemp[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
 #            deltxI.write('deltaxI= '+ str(deltaxI[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
 #            deltyI.write('deltayI= '+ str(deltayI[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
 #            ksiout.write('ksi= '+ str(ksi[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
@@ -307,13 +325,15 @@ for n in range(1,nitmax+1):
 #            sacout3.write('dksidy= '+ str(dksidy[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
 #            sacout4.write('detadx= '+ str(detadx[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
 #            viscos.write('visc= '+ str(viscosità[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
-            coeff1.write('fw= '+ str(fw[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
-#    f.close()
+#            coeff1.write('fw= '+ str(fw[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
+#            coeff2.write('gg= '+ str(gg[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
+#            coeff3.write('fv2= '+ str(fv2[i,j])+' ,i= '+ str(i)+' ,j= '+str(j)+'\n')
+    f.close()
 #    vv.close()
 #    pres.close()
-    dens.close()
+#    dens.close()
 #    temp.close()
-    stem.close()
+#    stem.close()
 #    deltxI.close()
 #    deltyI.close()
 #    etaout.close()
@@ -322,8 +342,13 @@ for n in range(1,nitmax+1):
 #    sacout2.close()
 #    sacout3.close()
 #    sacout4.close()
-    viscos.close()
-    coeff1.close()
+#    viscos.close()
+#    coeff1.close()
+#    coeff2.close()
+#    coeff3.close()
+#    print(d[:,0])
+#    print(deltayI[0,:])
+#    print(Cv)
 #    print('----ksi----')
 #    print(dtree['eqns']['qvec']['views']['ksi'][0,:])
 #    print('----ksi----')

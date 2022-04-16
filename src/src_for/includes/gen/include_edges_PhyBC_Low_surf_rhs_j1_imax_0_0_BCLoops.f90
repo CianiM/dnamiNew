@@ -66,8 +66,7 @@ d1_rhs_rho_dy_0_nxp2p01m2p0k = d1_rhs_rho_dy_0_nxp2p01m2p0k*param_float(2)
 
 
 rhs(nx+2+0,1-2+0,indvars(1)) =   -  ( (qst(nx+2+0,1-2+0,indvarsst(10))*(d1_rhs_rho_dx_0_nxp2p01m2p0k))*qst(nx+2+0,1-2+0,indvarsst(5))+&
-                    (q(nx+2+0,1-2+0,indvars(1))*(d1_rhs_rho_dy_0_nxp2p01m2p0k)*qst(nx+2+0,1-2+0,indvarsst(11)))*dabs(1-&
-                    qst(nx+2+0,1-2+0,indvarsst(5))) ) 
+                    (q(nx+2+0,1-2+0,indvars(1))*(d1_rhs_rho_dy_0_nxp2p01m2p0k)*qst(nx+2+0,1-2+0,indvarsst(11)))*qst(nx+2+0,1-2+0,indvarsst(19)) ) 
 
 
 
@@ -809,8 +808,7 @@ rhs(nx+2+0,1-2+0,indvars(4)) =   -  ( (qst(nx+2+0,1-2+0,indvarsst(10))*(d1_rhs_e
                     (q(nx+2+0,1-2+0,indvars(1))*q(nx+2+0,1-2+0,indvars(4))+&
                     (param_float(3 + 5))*q(nx+2+0,1-2+0,indvars(1))*((q(nx+2+0,1-2+0,indvars(4))-&
                     0.5_wp*(q(nx+2+0,1-2+0,indvars(2))*q(nx+2+0,1-2+0,indvars(2))+&
-                    q(nx+2+0,1-2+0,indvars(3))*q(nx+2+0,1-2+0,indvars(3))))))*(d1_rhs_rho_dy_0_nxp2p01m2p0k)*qst(nx+2+0,1-2+0,indvarsst(11)))*dabs(1-&
-                    qst(nx+2+0,1-2+0,indvarsst(5))) ) 
+                    q(nx+2+0,1-2+0,indvars(3))*q(nx+2+0,1-2+0,indvars(3))))))*(d1_rhs_rho_dy_0_nxp2p01m2p0k)*qst(nx+2+0,1-2+0,indvarsst(11)))*qst(nx+2+0,1-2+0,indvarsst(19)) ) 
 
 
 
@@ -931,23 +929,8 @@ d1_rhs_nut_dx_2_nxp2p01m2p0k = d1_rhs_nut_dx_2_nxp2p01m2p0k*param_float(1)
 rhs(nx+2+0,1-2+0,indvars(5)) =   -  ( (-&
                     param_float(1 + 5)*param_float(7 + 5)*param_float(18 + 5)*((qst(nx+2+0,1-2+0,indvarsst(10)))**2*(d1_rhs_nut_dx_0_nxp2p01m2p0k)*(d1_rhs_nut_dx_1_nxp2p01m2p0k))-&
                     param_float(6 + 5)*(1-&
-                    (param_float(16 + 5)*exp(-&
-                    param_float(17 + 5)*(q(nx+2+0,1-2+0,indvars(5))/(1+&
-                    param_float(21 + 5))/(((q(nx+2+0,1-2+0,indvars(4))-&
-                    0.5_wp*(q(nx+2+0,1-2+0,indvars(2))*q(nx+2+0,1-2+0,indvars(2))+&
-                    q(nx+2+0,1-2+0,indvars(3))*q(nx+2+0,1-2+0,indvars(3)))))/param_float(4 + 5)+&
-                    param_float(21 + 5))*((q(nx+2+0,1-2+0,indvars(4))-&
-                    0.5_wp*(q(nx+2+0,1-2+0,indvars(2))*q(nx+2+0,1-2+0,indvars(2))+&
-                    q(nx+2+0,1-2+0,indvars(3))*q(nx+2+0,1-2+0,indvars(3)))))/param_float(4 + 5)**1.5*q(nx+2+0,1-2+0,indvars(1)))**2)))*(qst(nx+2+0,1-2+0,indvarsst(4))+&
-                    param_float(1 + 5)*q(nx+2+0,1-2+0,indvars(5))/(param_float(9 + 5)**2*qst(nx+2+0,1-2+0,indvarsst(2))**2))*q(nx+2+0,1-2+0,indvars(1))*q(nx+2+0,1-2+0,indvars(5))+&
+                    qst(nx+2+0,1-2+0,indvarsst(16)))*qst(nx+2+0,1-2+0,indvarsst(20))*q(nx+2+0,1-2+0,indvars(1))*q(nx+2+0,1-2+0,indvars(5))+&
                     param_float(1 + 5)*(param_float(10 + 5)*qst(nx+2+0,1-2+0,indvarsst(13))-&
-                    param_float(6 + 5)/param_float(9 + 5)**2*(param_float(16 + 5)*exp(-&
-                    param_float(17 + 5)*(q(nx+2+0,1-2+0,indvars(5))/(1+&
-                    param_float(21 + 5))/(((q(nx+2+0,1-2+0,indvars(4))-&
-                    0.5_wp*(q(nx+2+0,1-2+0,indvars(2))*q(nx+2+0,1-2+0,indvars(2))+&
-                    q(nx+2+0,1-2+0,indvars(3))*q(nx+2+0,1-2+0,indvars(3)))))/param_float(4 + 5)+&
-                    param_float(21 + 5))*((q(nx+2+0,1-2+0,indvars(4))-&
-                    0.5_wp*(q(nx+2+0,1-2+0,indvars(2))*q(nx+2+0,1-2+0,indvars(2))+&
-                    q(nx+2+0,1-2+0,indvars(3))*q(nx+2+0,1-2+0,indvars(3)))))/param_float(4 + 5)**1.5*q(nx+2+0,1-2+0,indvars(1)))**2)))*q(nx+2+0,1-2+0,indvars(1))*q(nx+2+0,1-2+0,indvars(5))**2/qst(nx+2+0,1-2+0,indvarsst(2))**2+&
+                    param_float(6 + 5)/param_float(9 + 5)**2*qst(nx+2+0,1-2+0,indvarsst(16)))*q(nx+2+0,1-2+0,indvars(1))*q(nx+2+0,1-2+0,indvars(5))**2/qst(nx+2+0,1-2+0,indvarsst(2))**2+&
                     qst(nx+2+0,1-2+0,indvarsst(10))*(d1_rhs_nut_dx_2_nxp2p01m2p0k))*qst(nx+2+0,1-2+0,indvarsst(5)) ) 
 

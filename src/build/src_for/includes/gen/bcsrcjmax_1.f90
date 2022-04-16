@@ -1467,7 +1467,7 @@ rhs(i,ny+2-1,indvars(4)) = rhs(i,ny+2-1,indvars(4))  -  ( qst(i,ny+2-1,indvarsst
 
 !~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !
-! -ReI*Cb2*sigmaI*((deltaxI)**2*([rho*nut]_1x)*([nut]_1x)+(deltayI)**2*([rho*nut]_1y)*([nut]_1y))-Cb1*(1-ft2)*SS*rho*nut+ReI*(Cw1*fw-Cb1/k**2*ft2)*rho*nut**2/d**2
+! -ReI*Cb2*sigmaI*((deltaxI)**2*([rho*nut]_1x)*([nut]_1x)+(deltayI)**2*([rho*nut]_1y)*([nut]_1y))-Cb1*(1-ft2)*SS*rho*nut+ReI*(Cw1*fw-Cb1/k**2*ft2)*rho*nut**2/eta**2
 !
 !~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1523,24 +1523,9 @@ d1_dif_nut_dy_1_inyp2m1k = d1_dif_nut_dy_1_inyp2m1k*param_float(2)
 rhs(i,ny+2-1,indvars(5)) = rhs(i,ny+2-1,indvars(5))  -  ( -param_float(1 + 5)*param_float(7 + 5)*param_float(18 + 5)*((qst(i,ny+2-1,indvarsst(10)))**2*(d1_dif_nut_dx_0_inyp2m1k)*(d1_dif_nut_dx_1_inyp2m1k)+&
                     (qst(i,ny+2-1,indvarsst(11)))**2*(d1_dif_nut_dy_0_inyp2m1k)*(d1_dif_nut_dy_1_inyp2m1k))-&
                     param_float(6 + 5)*(1-&
-                    (param_float(16 + 5)*exp(-&
-                    param_float(17 + 5)*(q(i,ny+2-1,indvars(5))/(1+&
-                    param_float(21 + 5))/(((q(i,ny+2-1,indvars(4))-&
-                    0.5_wp*(q(i,ny+2-1,indvars(2))*q(i,ny+2-1,indvars(2))+&
-                    q(i,ny+2-1,indvars(3))*q(i,ny+2-1,indvars(3)))))/param_float(4 + 5)+&
-                    param_float(21 + 5))*((q(i,ny+2-1,indvars(4))-&
-                    0.5_wp*(q(i,ny+2-1,indvars(2))*q(i,ny+2-1,indvars(2))+&
-                    q(i,ny+2-1,indvars(3))*q(i,ny+2-1,indvars(3)))))/param_float(4 + 5)**1.5*q(i,ny+2-1,indvars(1)))**2)))*(qst(i,ny+2-1,indvarsst(4))+&
-                    param_float(1 + 5)*q(i,ny+2-1,indvars(5))/(param_float(9 + 5)**2*qst(i,ny+2-1,indvarsst(2))**2))*q(i,ny+2-1,indvars(1))*q(i,ny+2-1,indvars(5))+&
+                    qst(i,ny+2-1,indvarsst(16)))*qst(i,ny+2-1,indvarsst(20))*q(i,ny+2-1,indvars(1))*q(i,ny+2-1,indvars(5))+&
                     param_float(1 + 5)*(param_float(10 + 5)*qst(i,ny+2-1,indvarsst(13))-&
-                    param_float(6 + 5)/param_float(9 + 5)**2*(param_float(16 + 5)*exp(-&
-                    param_float(17 + 5)*(q(i,ny+2-1,indvars(5))/(1+&
-                    param_float(21 + 5))/(((q(i,ny+2-1,indvars(4))-&
-                    0.5_wp*(q(i,ny+2-1,indvars(2))*q(i,ny+2-1,indvars(2))+&
-                    q(i,ny+2-1,indvars(3))*q(i,ny+2-1,indvars(3)))))/param_float(4 + 5)+&
-                    param_float(21 + 5))*((q(i,ny+2-1,indvars(4))-&
-                    0.5_wp*(q(i,ny+2-1,indvars(2))*q(i,ny+2-1,indvars(2))+&
-                    q(i,ny+2-1,indvars(3))*q(i,ny+2-1,indvars(3)))))/param_float(4 + 5)**1.5*q(i,ny+2-1,indvars(1)))**2)))*q(i,ny+2-1,indvars(1))*q(i,ny+2-1,indvars(5))**2/qst(i,ny+2-1,indvarsst(1))**2 ) 
+                    param_float(6 + 5)/param_float(9 + 5)**2*qst(i,ny+2-1,indvarsst(16)))*q(i,ny+2-1,indvars(1))*q(i,ny+2-1,indvars(5))**2/qst(i,ny+2-1,indvarsst(2))**2 ) 
 
    enddo
 
